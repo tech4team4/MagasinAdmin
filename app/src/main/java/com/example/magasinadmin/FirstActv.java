@@ -77,11 +77,11 @@ public class FirstActv extends AppCompatActivity {
                 public void run() {
                     //Do any action here. Now we are moving to next page
                     if (type.equals("") || k==-1) {
-                        Intent mySuperIntent = new Intent(FirstActv.this, MainActivity.class);
+                        Intent mySuperIntent = new Intent(FirstActv.this, Log_In_Email.class);
                         startActivity(mySuperIntent);
                     }
                     if (type.equals("restaurant")) {
-                        Intent mySuperIntent = new Intent(FirstActv.this, EspaceTravail.class);
+                        Intent mySuperIntent = new Intent(FirstActv.this, Main2Activity.class);
                         startActivity(mySuperIntent);
                     }
                     finish();
@@ -90,7 +90,7 @@ public class FirstActv extends AppCompatActivity {
 
 
         }else{
-            Intent mySuperIntent = new Intent(FirstActv.this, MainActivity.class);
+            Intent mySuperIntent = new Intent(FirstActv.this, Log_In_Email.class);
             startActivity(mySuperIntent);
             finish();
         }

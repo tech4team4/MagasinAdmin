@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home_icon"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_list"
+            android:icon="@drawable/list_icon"
+            android:title="Liste" />
+    </group>
+
+
+    <item android:title="Communication">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/profile_icon"
+                    android:title="Profile" />
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/logout_icon"
+                    android:title="Deconnexion" />
+            </group>
+        </menu>
+
+    </item>
+
+
+    <item android:title="Communication">
+        <menu>
+            <item
+                android:id="@+id/nav_contact"
+                android:icon="@drawable/contact_icon"
+                android:title="Contacter Nous" />
+            <item
+                android:id="@+id/nav_facebook"
+                android:icon="@drawable/like_icon"
+                android:title="Reseau Sociaux" />
+        </menu>
+    </item>
+</menu>

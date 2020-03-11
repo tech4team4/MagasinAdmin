@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#EEDCE7"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Log_In_Email">
 
     <ImageView
         android:id="@+id/imageView"
