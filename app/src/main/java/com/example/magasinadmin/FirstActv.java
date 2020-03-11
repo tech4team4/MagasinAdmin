@@ -81,7 +81,7 @@ public class FirstActv extends AppCompatActivity {
                         startActivity(mySuperIntent);
                     }
                     if (type.equals("restaurant")) {
-                        Intent mySuperIntent = new Intent(FirstActv.this, Main2Activity.class);
+                        Intent mySuperIntent = new Intent(FirstActv.this, HomeActivity.class);
                         startActivity(mySuperIntent);
                     }
                     finish();

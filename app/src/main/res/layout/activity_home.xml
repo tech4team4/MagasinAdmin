@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main2Activity"
+    tools:context=".HomeActivity"
     android:fitsSystemWindows="true"
     android:id="@+id/drawer_layout"
     tools:openDrawer="start">
@@ -21,14 +21,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:background="#FFFFFF">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#00008577"
                 android:minHeight="?attr/actionBarSize"
@@ -38,8 +39,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:navigationIcon="@drawable/menu" />
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HIIIIIII"
+                android:textSize="45sp"/>
+        </LinearLayout>
 
     </ScrollView>
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -32,7 +32,7 @@ public class Log_In_Email extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         initializeUI();
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -68,7 +68,7 @@ public class Log_In_Email extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
 
-                            Intent intent = new Intent(Log_In_Email.this, Main2Activity.class);
+                            Intent intent = new Intent(Log_In_Email.this, HomeActivity.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(getApplicationContext(), "Login erroné! Essayer autrement", Toast.LENGTH_LONG).show();
@@ -91,7 +91,7 @@ public class Log_In_Email extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         final FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            startActivity(new Intent(Log_In_Email.this, Main2Activity.class));
+            startActivity(new Intent(Log_In_Email.this, HomeActivity.class));
             finish();
 /*
             //Code to start timer and take action after the timer ends
