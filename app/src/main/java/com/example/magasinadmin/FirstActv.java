@@ -47,7 +47,7 @@ public class FirstActv extends AppCompatActivity {
             db.collection("user_magasin")
                     .document("restaurant_users")
                     .collection("restaurant_owner")
-                    .whereEqualTo("email", "restau1@gmail.com")
+                    .whereEqualTo("email", currentUser.getEmail())
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override

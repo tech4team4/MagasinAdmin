@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,10 +20,19 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    //////code
+    private RecyclerView mFirestoreList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        mFirestoreList=findViewById(R.id.firestore_list);
+
+
+
         /*------------------definir les relations---------------*/
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -80,6 +91,12 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.signOut();
         Intent intent1 = new Intent(ListActivity.this, Log_In_Email.class);
+        startActivity(intent1);
+        finish();
+    }
+
+    public void Ajouter_categorie(View view) {
+        Intent intent1 = new Intent(ListActivity.this, Ajouter_Categorie.class);
         startActivity(intent1);
         finish();
     }
