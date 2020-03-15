@@ -3,17 +3,23 @@ package com.example.magasinadmin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -29,6 +35,10 @@ public class Ajouter_Categorie extends AppCompatActivity {
     FirebaseFirestore db;
     private FirebaseAuth mAuth;
     EditText category_field;
+    ////code pour afficher pop up menu
+    LinearLayout L1,L2;
+    Button b, accept;
+    Dialog epicDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +47,47 @@ public class Ajouter_Categorie extends AppCompatActivity {
         initializeUI();
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+
+        epicDialog = new Dialog(this);
+
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //epicDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                epicDialog.setContentView(R.layout.bottom_edit_list);
+               // accept = (Button) epicDialog.findViewById(R.id.Accept);
+                L1=(LinearLayout) epicDialog.findViewById(R.id.Editer_Categorie);
+                L2=(LinearLayout) epicDialog.findViewById(R.id.Supprimer_Categorie);
+                accept.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        epicDialog.dismiss();
+                    }
+                });
+                L1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(Ajouter_Categorie.this,"L1111",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                L2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(Ajouter_Categorie.this,"L2",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+                epicDialog.show();
+            }
+        });
     }
+
+    public void ShowPopUp(){
+
+    }
+
 
     private void initializeUI() {
         category_field = findViewById(R.id.category_field);
@@ -85,7 +135,7 @@ public class Ajouter_Categorie extends AppCompatActivity {
         db.collection("Menu")
                 .document(id)
                 .collection("category")
-                .document(nom_catg)
+                .document()
                 .set(Categ)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -104,4 +154,6 @@ public class Ajouter_Categorie extends AppCompatActivity {
                     }
                 });
     }
+
+
 }

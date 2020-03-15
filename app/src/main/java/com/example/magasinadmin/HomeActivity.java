@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -86,5 +87,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent1);
         finish();
     }
+
 
 }

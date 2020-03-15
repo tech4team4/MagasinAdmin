@@ -34,10 +34,11 @@
         android:layout_height="wrap_content"
         android:onClick="ADD"
         android:text="Ajouter La Categorie"
-        android:textColor="#ffffff"
+        android:textColor="#000000"
         android:textSize="20sp"
-        android:background="#4570ff"
+        android:background="@drawable/rounded_button"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="15dp" />
+
 </LinearLayout>
