@@ -40,6 +40,7 @@ public class Categorie_Adapter extends FirestoreRecyclerAdapter<Model_Category, 
 
     class CategorieHolder extends RecyclerView.ViewHolder {
         TextView categorieTextView;
+
         public CategorieHolder(@NonNull View itemView) {
             super(itemView);
             categorieTextView = itemView.findViewById(R.id.list_name_category);
@@ -64,12 +65,25 @@ public class Categorie_Adapter extends FirestoreRecyclerAdapter<Model_Category, 
                     }
                 }
             });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position = getAdapterPosition();
+                    listner.onItemLongClick(getSnapshots().getSnapshot(position), getAdapterPosition(), v);
+                    return true;
+                }
+            });
+
+//            itemView.setOnLongClickListener((View.OnLongClickListener) this);
         }
     }
 
     //////ce code pour clicker sur list
     public interface OnItemClickListner {
         void OnItemClick(DocumentSnapshot documentSnapshot, int position);
+
+        void onItemLongClick(DocumentSnapshot documentSnapshot, int position, View v);
     }
 
     public void setOnItemClickListner(OnItemClickListner listner) {

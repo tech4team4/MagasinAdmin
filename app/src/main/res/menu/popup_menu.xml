@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/edit_category_menu"
+        android:icon="@drawable/ic_edit_rose"
+        android:title="Modifier La Categorie" />
+
+    <item
+        android:id="@+id/delete_category_menu"
+        android:icon="@drawable/ic_delete_rose"
+        android:title="Supprimer La Categorie" />
+
+
+</menu>

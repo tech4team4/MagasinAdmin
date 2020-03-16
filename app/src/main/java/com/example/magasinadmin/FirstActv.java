@@ -28,7 +28,7 @@ public class FirstActv extends AppCompatActivity {
     FirebaseFirestore db;
 
     ProgressBar splashProgress;
-    int SPLASH_TIME = 2000; //This is 3 seconds
+    int SPLASH_TIME = 500; //This is 3 seconds
     String id = "";
     String email = "";
     String type = "";

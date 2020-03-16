@@ -2,7 +2,11 @@ package com.example.magasinadmin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -11,13 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +33,8 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
@@ -65,41 +74,21 @@ public class ListActivity extends AppCompatActivity {
         mFirestoreList = findViewById(R.id.firestore_list);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        getCollectionID();
-
+        idR = getIntent().getStringExtra("IDR");////id de restaurant
 
         ////dialog pop up
         epicDialog = new Dialog(this);
         setUpRecyclerView();
     }//end onCreate()
 
-    String id = "";
+    String idR = "";
 
-    public void getCollectionID() {
-        db.collection("Menu")
-                .whereEqualTo("email", currentUser.getEmail())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                id = document.getId();
-                                Log.d("Heyyyyy66TEssst ", "      > " + document.getId() + " => " + document.getData());
-                            }
-                            categorieRef = db.collection("Menu")
-                                    .document(id)
-                                    .collection("category");
-                        } else {
-                            Log.d("Heyyyyy66", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-
-    }
 
     private void setUpRecyclerView() {
+
+        categorieRef = db.collection("Menu")
+                .document(idR)
+                .collection("category");
         Query query = categorieRef.orderBy("name", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Model_Category> options = new FirestoreRecyclerOptions.Builder<Model_Category>()
                 .setQuery(query, Model_Category.class)
@@ -126,6 +115,8 @@ public class ListActivity extends AppCompatActivity {
         }).attachToRecyclerView(recyclerView);
         */
 
+
+        /////action de click sur item recycler viewer
         adapter.setOnItemClickListner(new Categorie_Adapter.OnItemClickListner() {
             @Override
             public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
@@ -133,20 +124,112 @@ public class ListActivity extends AppCompatActivity {
                 String path = documentSnapshot.getReference().getPath();
                 String id = documentSnapshot.getId();
                 //DocumentReference ref = documentSnapshot.getReference();
-                Toast.makeText(ListActivity.this, "position " + position +
-                        "\nid=" + id +
-                        "\ndoc=" + path, Toast.LENGTH_LONG).show();
+                //Toast.makeText(ListActivity.this, "position " + position +
+                //      "\nid=" + id +
+                //    "\ndoc=" + path, Toast.LENGTH_LONG).show();
 
                 //////cliquer sur item et lancer la modification ou bien suppresion
                 Intent intent1 = new Intent(ListActivity.this, Edit_Category_List.class);
                 intent1.putExtra("PATH", path);
                 intent1.putExtra("ID_Document", id);
+                intent1.putExtra("ID_Restaurant", idR);
                 startActivity(intent1);
-                finish();
+                //finish();
                 //ShowPopUp();
 
             }
+
+            @Override
+            public void onItemLongClick(DocumentSnapshot documentSnapshot, int position, View v) {
+                String path = documentSnapshot.getReference().getPath();
+                String id = documentSnapshot.getId();
+                ShowPopUpMenu(v, documentSnapshot);
+            }
         });
+    }
+
+
+    public void ShowPopUpMenu(View v, final DocumentSnapshot documentSnapshot) {
+
+        MenuBuilder menuBuilder = new MenuBuilder(this);
+        MenuInflater inflater = new MenuInflater(this);
+        inflater.inflate(R.menu.popup_menu, menuBuilder);
+        MenuPopupHelper optionsMenu = new MenuPopupHelper(this, menuBuilder, v);
+        optionsMenu.setForceShowIcon(true);
+        menuBuilder.setCallback(new MenuBuilder.Callback() {
+            @Override
+            public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.edit_category_menu: // Handle option1 Click
+                        Edit_Categorie(documentSnapshot);
+                        Toast.makeText(ListActivity.this, "Item 1 clicked", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.delete_category_menu: // Handle option2 Click
+                        Delete_Ctegorie(documentSnapshot);
+                        Toast.makeText(ListActivity.this, "Item 2 clicked", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onMenuModeChange(MenuBuilder menu) {
+            }
+        });
+
+        optionsMenu.show();
+    }
+
+    public void Edit_Categorie(DocumentSnapshot documentSnapshot) {
+        String path = documentSnapshot.getReference().getPath();
+        String id = documentSnapshot.getId();
+        Log.e("ERRROOOO",id);
+        Log.e("ERRROOOO",path);
+        Intent intent1 = new Intent(ListActivity.this, Edit_Category_List.class);
+        intent1.putExtra("PATH", path);
+        intent1.putExtra("ID_Document", id);
+        intent1.putExtra("ID_Restaurant", idR);
+        startActivity(intent1);
+        //finish();
+    }
+
+    public void Delete_Ctegorie(DocumentSnapshot documentSnapshot) {
+        final String path = documentSnapshot.getReference().getPath();
+        String id = documentSnapshot.getId();
+        AlertDialog.Builder altdial = new AlertDialog.Builder(ListActivity.this);
+        altdial.setMessage("Etes Vous Sur De Supprimer La Categorie ?").setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DocumentReference document = db.document(path);
+                        document.delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(ListActivity.this, "Suppression Success", Toast.LENGTH_LONG).show();
+                                        finish();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(ListActivity.this, "Connexion Echoué", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                        //finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert = altdial.create();
+        alert.setTitle("Confirmation");
+        alert.show();
     }
 
     @Override
@@ -164,8 +247,12 @@ public class ListActivity extends AppCompatActivity {
     public void Ajouter_categorie(View view) {
         Intent intent1 = new Intent(ListActivity.this, Ajouter_Categorie.class);
         startActivity(intent1);
-        finish();
+        //finish();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

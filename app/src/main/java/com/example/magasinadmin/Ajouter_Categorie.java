@@ -37,7 +37,7 @@ public class Ajouter_Categorie extends AppCompatActivity {
     EditText category_field;
     ////code pour afficher pop up menu
     LinearLayout L1,L2;
-    Button b, accept;
+    Button   accept;
     Dialog epicDialog;
 
     @Override
@@ -50,7 +50,7 @@ public class Ajouter_Categorie extends AppCompatActivity {
 
         epicDialog = new Dialog(this);
 
-        b.setOnClickListener(new View.OnClickListener() {
+        /*b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //epicDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -81,7 +81,7 @@ public class Ajouter_Categorie extends AppCompatActivity {
 
                 epicDialog.show();
             }
-        });
+        });*/
     }
 
     public void ShowPopUp(){
@@ -142,8 +142,8 @@ public class Ajouter_Categorie extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Log.d("Heyyyyy98", "DocumentSnapshot successfully written!");
                         Toast.makeText(Ajouter_Categorie.this, "Categorie a Ajoutée Avec Succées", Toast.LENGTH_LONG).show();
-                        Intent intent1 = new Intent(Ajouter_Categorie.this, ListActivity.class);
-                        startActivity(intent1);
+                        //Intent intent1 = new Intent(Ajouter_Categorie.this, ListActivity.class);
+                        //startActivity(intent1);
                         finish();
                     }
                 })
@@ -155,5 +155,9 @@ public class Ajouter_Categorie extends AppCompatActivity {
                 });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

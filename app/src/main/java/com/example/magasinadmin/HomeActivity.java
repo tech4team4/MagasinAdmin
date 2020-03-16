@@ -8,24 +8,36 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
         /*------------------definir les relations---------------*/
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -58,7 +70,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
+    String id="";
     /*-----------------------------ce code pour navigation drawer---------------------*/
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -66,9 +78,30 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
                 break;
             case R.id.nav_list:
-                Intent intent = new Intent(HomeActivity.this, ListActivity.class);
-                startActivity(intent);
-                finish();
+
+                db.collection("Menu")
+                .whereEqualTo("email", currentUser.getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                id = document.getId();
+                                Log.d("Heyyyyy66Home ", "      > " + document.getId() + " => " + document.getData());
+                            }
+                            Intent intent = new Intent(HomeActivity.this, ListActivity.class);
+                            intent.putExtra("IDR",id);
+                            startActivity(intent);
+                            //finish();
+
+                        } else {
+                            //Log.d("Heyyyyy66", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
                 break;
             case R.id.nav_logout:
                 signOut();
