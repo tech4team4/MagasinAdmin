@@ -162,11 +162,11 @@ public class ListActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.edit_category_menu: // Handle option1 Click
                         Edit_Categorie(documentSnapshot);
-                        Toast.makeText(ListActivity.this, "Item 1 clicked", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ListActivity.this, "Item 1 clicked", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.delete_category_menu: // Handle option2 Click
                         Delete_Ctegorie(documentSnapshot);
-                        Toast.makeText(ListActivity.this, "Item 2 clicked", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ListActivity.this, "Item 2 clicked", Toast.LENGTH_SHORT).show();
                         return true;
                     default:
                         return false;
@@ -208,7 +208,7 @@ public class ListActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(ListActivity.this, "Suppression Success", Toast.LENGTH_LONG).show();
-                                        finish();
+                                        //finish();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {

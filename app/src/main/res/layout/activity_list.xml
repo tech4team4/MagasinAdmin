@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:isScrollContainer="true"
         android:layout_marginTop="55dp"
-        android:layout_marginBottom="85dp"
+        android:layout_marginBottom="80dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp" />
 
