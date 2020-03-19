@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Edit_Category_List"></activity>
+        <activity android:name=".Ajouter_Categorie_Type_Menu"></activity>
+        <activity android:name=".Categorie_Type_Sous_Menu" />
+        <activity android:name=".Edit_Category_List" />
         <activity android:name=".Ajouter_Categorie" />
         <activity android:name=".ListActivity" />
         <activity android:name=".HomeActivity" />

@@ -1,16 +1,12 @@
 package com.example.magasinadmin;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,24 +15,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,8 +34,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class ListActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
@@ -95,7 +82,7 @@ public class ListActivity extends AppCompatActivity {
                 .build();
 
         adapter = new Categorie_Adapter(options);
-        RecyclerView recyclerView = findViewById(R.id.firestore_list);
+        final RecyclerView recyclerView = findViewById(R.id.firestore_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -123,16 +110,16 @@ public class ListActivity extends AppCompatActivity {
                 //Categorie_List list = documentSnapshot.toObject(Categorie_List.class);
                 String path = documentSnapshot.getReference().getPath();
                 String id = documentSnapshot.getId();
+                String title = "";
+                title = (String) documentSnapshot.get("name");
                 //DocumentReference ref = documentSnapshot.getReference();
-                //Toast.makeText(ListActivity.this, "position " + position +
-                //      "\nid=" + id +
-                //    "\ndoc=" + path, Toast.LENGTH_LONG).show();
 
                 //////cliquer sur item et lancer la modification ou bien suppresion
-                Intent intent1 = new Intent(ListActivity.this, Edit_Category_List.class);
+                Intent intent1 = new Intent(ListActivity.this, Categorie_Type_Sous_Menu.class);
                 intent1.putExtra("PATH", path);
                 intent1.putExtra("ID_Document", id);
                 intent1.putExtra("ID_Restaurant", idR);
+                intent1.putExtra("Title", title);
                 startActivity(intent1);
                 //finish();
                 //ShowPopUp();
@@ -184,8 +171,8 @@ public class ListActivity extends AppCompatActivity {
     public void Edit_Categorie(DocumentSnapshot documentSnapshot) {
         String path = documentSnapshot.getReference().getPath();
         String id = documentSnapshot.getId();
-        Log.e("ERRROOOO",id);
-        Log.e("ERRROOOO",path);
+        Log.e("ERRROOOO", id);
+        Log.e("ERRROOOO", path);
         Intent intent1 = new Intent(ListActivity.this, Edit_Category_List.class);
         intent1.putExtra("PATH", path);
         intent1.putExtra("ID_Document", id);
