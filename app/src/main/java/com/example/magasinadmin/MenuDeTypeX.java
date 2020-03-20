@@ -1,13 +1,18 @@
 package com.example.magasinadmin;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,9 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -64,7 +72,7 @@ public class MenuDeTypeX extends AppCompatActivity {
                 .build();
         adapter = new Menu_Adapter(options);
         ////---------------------------------------change ici
-        final  RecyclerView recyclerView = findViewById(R.id.recycler_view_menu);
+        final RecyclerView recyclerView = findViewById(R.id.recycler_view_menu);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -74,20 +82,21 @@ public class MenuDeTypeX extends AppCompatActivity {
             @Override
             public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
                 //Categorie_List list = documentSnapshot.toObject(Categorie_List.class);
-                String path = documentSnapshot.getReference().getPath();
+                /*String path = documentSnapshot.getReference().getPath();
                 String id = documentSnapshot.getId();
                 String title = "";
                 title = (String) documentSnapshot.get("name");
                 //DocumentReference ref = documentSnapshot.getReference();
-
+                Toast.makeText(MenuDeTypeX.this, "path=" + PATH, Toast.LENGTH_LONG).show();
                 //////cliquer sur item et lancer la modification ou bien suppresion
-                Intent intent1 = new Intent(MenuDeTypeX.this, MenuDeTypeX.class);ff
+                Intent intent1 = new Intent(MenuDeTypeX.this, Ajouter_Menu.class);
                 intent1.putExtra("PATH", path);
                 intent1.putExtra("ID_Document", id);
                 intent1.putExtra("Title", title);
                 intent1.putExtra("Category", CATGORY);
-                intent1.putExtra("TYPE",TYPE);
-                startActivity(intent1);
+                intent1.putExtra("TYPE", TYPE);
+                intent1.putExtra("CAT_NAME", PATH);
+                startActivity(intent1);*/
             }
 
             @Override
@@ -110,10 +119,10 @@ public class MenuDeTypeX extends AppCompatActivity {
             public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.edit_category_menu: // Handle option1 Click
-                        // Edit_Menu(documentSnapshot);
+                        Edit_Menu(documentSnapshot);
                         return true;
                     case R.id.delete_category_menu: // Handle option2 Click
-                        //Delete_Menu(documentSnapshot);
+                        Delete_Menu(documentSnapshot);
                         return true;
                     default:
                         return false;
@@ -126,6 +135,80 @@ public class MenuDeTypeX extends AppCompatActivity {
         });
         optionsMenu.show();
     }
+
+    public void Edit_Menu(DocumentSnapshot documentSnapshot) {
+
+        try {
+            String path = documentSnapshot.getReference().getPath();
+            String id = documentSnapshot.getId();
+            ////////
+            String name = (String) documentSnapshot.get("name");
+            String details = (String) documentSnapshot.get("details");
+            String prix = (String) String.valueOf(documentSnapshot.get("prix"));
+            String nbr_viande = (String) String.valueOf(documentSnapshot.get("nbr_viande"));
+            String choix = (String) String.valueOf(documentSnapshot.get("choix"));
+
+            Intent intent1 = new Intent(MenuDeTypeX.this, Edit_Menu.class);
+
+            intent1.putExtra("PATH", path);
+            intent1.putExtra("ID_Document", id);
+            intent1.putExtra("Category", CATGORY);
+            intent1.putExtra("TYPE", TYPE);
+            intent1.putExtra("CAT_NAME", PATH);
+
+            intent1.putExtra("name", name);
+            intent1.putExtra("details", details);
+            intent1.putExtra("nbr_viande", nbr_viande);
+            intent1.putExtra("prix", prix);
+            intent1.putExtra("choix", choix);
+
+            startActivity(intent1);
+            //finish();
+        } catch (Exception e) {
+            Log.e("ERRRRRR", e.getMessage());
+        }
+        //String n = (String) documentSnapshot.get("name");
+
+    }
+
+    public void Delete_Menu(DocumentSnapshot documentSnapshot) {
+        final String path = documentSnapshot.getReference().getPath();
+        String id = documentSnapshot.getId();
+        AlertDialog.Builder altdial = new AlertDialog.Builder(MenuDeTypeX.this);
+        altdial.setMessage("Etes Vous Sur De Supprimer ?").setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DocumentReference document = db.document(path);
+                        document.delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(MenuDeTypeX.this, "Suppression Success", Toast.LENGTH_LONG).show();
+                                        //finish();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(MenuDeTypeX.this, "Connexion Echoué", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                        //finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert = altdial.create();
+        alert.setTitle("Confirmation");
+        alert.show();
+    }
+
 
     @Override
     protected void onStart() {
@@ -140,5 +223,10 @@ public class MenuDeTypeX extends AppCompatActivity {
     }
 
     public void Ajouter_menu(View view) {
+        Intent intent1 = new Intent(MenuDeTypeX.this, Ajouter_Menu.class);
+        intent1.putExtra("Category", CATGORY);
+        intent1.putExtra("TYPE", TYPE);
+        intent1.putExtra("CAT_NAME", PATH);
+        startActivity(intent1);
     }
 }

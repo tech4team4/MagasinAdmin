@@ -60,58 +60,11 @@ public class Ajouter_Categorie_Type_Menu extends AppCompatActivity {
             category_field.setError("Ecrire un Type s'il vous plaît");
         } else {
             Insert_TYPE(PATH, nom);
-            /*
-            final FirebaseUser currentUser = mAuth.getCurrentUser();
-            //get all document with data
-            db.collection("Menu").whereEqualTo("email", currentUser.getEmail())
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d("Heyyyyy1 ", document.getId() + " => " + document.getData());
-                                    id = document.getId();
-                                }
-                                if (!id.equals(""))
-                                   // insert_category(id, nom);
-                                Insert_TYPE(PATH, nom);
 
-                            } else {
-                                Log.w("Heyyyyy2 ", "Error getting documents.", task.getException());
-                            }
-                        }
-                    });*/
 
         }
     }
 
-   /* public void insert_category(String id, String nom_catg) {
-        Map<String, Object> Categ = new HashMap<>();
-        Categ.put("name", nom_catg);
-
-        db.collection("Menu")
-                .document(id)
-                .collection("category")
-                .document()
-                .set(Categ)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("Heyyyyy98", "DocumentSnapshot successfully written!");
-                        Toast.makeText(Ajouter_Categorie.this, "Categorie a Ajoutée Avec Succées", Toast.LENGTH_LONG).show();
-                        //Intent intent1 = new Intent(Ajouter_Categorie.this, ListActivity.class);
-                        //startActivity(intent1);
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("Heyyyyy98", "Error writing document", e);
-                    }
-                });
-    }*/
 
 
     private void Insert_TYPE(String path, String nom_type) {

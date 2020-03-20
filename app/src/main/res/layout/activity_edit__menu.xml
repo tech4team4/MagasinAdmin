@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:isScrollContainer="true"
     android:orientation="vertical"
-    tools:context=".Ajouter_Menu">
+    tools:context=".Edit_Menu">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/menu_nom"
+                android:id="@+id/menu_nomx"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
@@ -50,7 +50,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/menu_details"
+                android:id="@+id/menu_detailsx"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
@@ -70,7 +70,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/menu_prix"
+                android:id="@+id/menu_prixx"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
@@ -92,7 +92,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/menu_nbr_viande"
+                android:id="@+id/menu_nbr_viandex"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
@@ -113,7 +113,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/menu_choix"
+                android:id="@+id/menu_choixx"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
@@ -129,7 +129,6 @@
 
 
     <Button
-        android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginLeft="0dp"
@@ -137,9 +136,9 @@
         android:layout_marginRight="0dp"
         android:layout_marginBottom="0dp"
         android:layout_weight="0"
-        android:background="#47A34C"
-        android:onClick="ADD_MENU"
-        android:text="Ajouter Au Menu"
+        android:background="#C97C1E"
+        android:onClick="MODIFIER_MENU"
+        android:text="Modifier Menu"
         android:textColor="#ffffff"
         android:textSize="35sp" />
 
