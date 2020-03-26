@@ -36,7 +36,6 @@ public class MenuDeTypeX extends AppCompatActivity {
     FirebaseUser currentUser;
     private RecyclerView mFirestoreList;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference categorieRef;//=db.collection("/Menu/1txFn61xmmPfbZvyVgbu/category");
     String ID = "", IDR = "", PATH = "", TYPE = "", CATGORY = "";
     ////change this
     private Menu_Adapter adapter;
@@ -65,7 +64,7 @@ public class MenuDeTypeX extends AppCompatActivity {
 
     private void setUpRecyclerView() {
         Query query = db
-                .collection("/Menu/MRKv8uO1uwAg7XHgqHfe/category/xZKnPaWbOAFLesGfCbz1/list/puy06c21bu2JmxhDVu1x/list_menu")
+                .collection(PATH+"/list_menu")
                 .orderBy("name", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Menu> options = new FirestoreRecyclerOptions.Builder<Menu>()
                 .setQuery(query, Menu.class)

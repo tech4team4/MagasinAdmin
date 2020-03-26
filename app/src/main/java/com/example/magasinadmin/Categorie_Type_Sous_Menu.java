@@ -81,7 +81,7 @@ public class Categorie_Type_Sous_Menu extends AppCompatActivity {
             @Override
             public void OnItemClick(DocumentSnapshot documentSnapshot, int position) {
                 //Categorie_List list = documentSnapshot.toObject(Categorie_List.class);
-                 String path = documentSnapshot.getReference().getPath();
+                String path = documentSnapshot.getReference().getPath();
                 String id = documentSnapshot.getId();
                 String title = "";
                 title = (String) documentSnapshot.get("name");
@@ -93,7 +93,7 @@ public class Categorie_Type_Sous_Menu extends AppCompatActivity {
                 intent1.putExtra("ID_Document", id);
                 //intent1.putExtra("ID_Restaurant", idR);
                 intent1.putExtra("Title", title);
-                intent1.putExtra("Category",TITLE);
+                intent1.putExtra("Category", TITLE);
                 startActivity(intent1);
                 //finish();
                 //ShowPopUp();

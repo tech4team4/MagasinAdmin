@@ -106,6 +106,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logout:
                 signOut();
                 break;
+            case R.id.nav_profile:
+                Intent intent = new Intent(HomeActivity.this, Profile.class);
+                startActivity(intent);
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -121,5 +125,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         finish();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        navigationView.setCheckedItem(R.id.nav_home);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationView.setCheckedItem(R.id.nav_home);
+    }
 }
