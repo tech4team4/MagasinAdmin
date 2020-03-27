@@ -7,6 +7,24 @@
     android:orientation="vertical"
     tools:context=".Profile">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#019f00"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="right"
+            android:adjustViewBounds="true"
+            android:background="#00FFFFFF"
+            android:onClick="SaveProfileInfo"
+            android:src="@drawable/ic_save"
+            android:tint="#FFFFFF" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/image_profile"
@@ -24,105 +42,114 @@
         android:layout_height="2dp"
         android:background="#000000" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Nom Magasin"
-            android:textSize="20dp" />
-
-        <EditText
-            android:id="@+id/nom_magasin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:hint="Ecrire Le Nom ICI"
-            android:textAlignment="center" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Numéro de Téléphone"
-            android:textSize="20dp" />
-
-        <EditText
-            android:id="@+id/num_telephone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:hint="0777778899"
-            android:textAlignment="center" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Email Commercial"
-            android:textSize="20dp" />
-
-        <EditText
-            android:id="@+id/email_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:hint="Email@email.com"
-            android:textAlignment="center" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Mot De Passe Oublier?"
-            android:textSize="20dp" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:onClick="demander_password"
-            android:text="Demander Un Mot De Passe"
-            android:textAlignment="center" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Localisation"
-            android:textSize="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/location_gps_profile"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:text="Nom Magasin"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/nom_magasin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:hint="Aucun Location"
+                android:hint="Ecrire Le Nom ICI"
                 android:textAlignment="center" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:background="#00000000"
-                android:src="@drawable/icons8_google_maps_35px" />
+                android:layout_marginTop="10dp"
+                android:text="Numéro de Téléphone"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/num_telephone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:hint="0777778899"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Email Commercial"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/email_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:hint="Email@email.com"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Mot De Passe Oublier?"
+                android:textSize="18dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:onClick="demander_password"
+                android:text="Demander Un Mot De Passe"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Localisation"
+                android:textSize="18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/location_gps_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:gravity="center_horizontal"
+                    android:hint="Aucun Location"
+                    android:textAlignment="center" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:background="#00000000"
+                    android:onClick="ChoosLocation"
+                    android:src="@drawable/icons8_google_maps_35px" />
+            </LinearLayout>
+
+
         </LinearLayout>
-
-
-    </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

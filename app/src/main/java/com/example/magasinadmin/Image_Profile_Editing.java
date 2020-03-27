@@ -173,6 +173,6 @@ public class Image_Profile_Editing extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        RetrieveUserInfo();
+        //RetrieveUserInfo();
     }
 }
