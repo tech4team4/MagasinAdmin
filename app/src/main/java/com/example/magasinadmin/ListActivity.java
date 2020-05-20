@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -136,6 +137,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("RestrictedApi")
     public void ShowPopUpMenu(View v, final DocumentSnapshot documentSnapshot) {
 
         MenuBuilder menuBuilder = new MenuBuilder(this);

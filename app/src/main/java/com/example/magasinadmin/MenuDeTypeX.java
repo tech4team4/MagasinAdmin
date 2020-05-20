@@ -8,6 +8,7 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,7 +65,7 @@ public class MenuDeTypeX extends AppCompatActivity {
 
     private void setUpRecyclerView() {
         Query query = db
-                .collection(PATH+"/list_menu")
+                .collection(PATH + "/list_menu")
                 .orderBy("name", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Menu> options = new FirestoreRecyclerOptions.Builder<Menu>()
                 .setQuery(query, Menu.class)
@@ -107,7 +108,9 @@ public class MenuDeTypeX extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("RestrictedApi")
     public void ShowPopUpMenu(View v, final DocumentSnapshot documentSnapshot) {
+
         MenuBuilder menuBuilder = new MenuBuilder(this);
         MenuInflater inflater = new MenuInflater(this);
         inflater.inflate(R.menu.popup_menu, menuBuilder);
